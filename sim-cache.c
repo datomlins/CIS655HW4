@@ -678,21 +678,21 @@ sim_reg_stats(struct stat_sdb_t *sdb)	/* stats database */
 		   "simulation speed (in insts/sec)",
 		   "sim_num_insn / sim_elapsed_time", NULL);
 
-  /* register cache stats */
-  if (cache_il1
-      && (cache_il1 != cache_dl1 && cache_il1 != cache_dl2))
+  // LVL3 Modified (BEGIN): Register the new caches.
+  if (cache_il1 && (cache_il1 != cache_dl1 && cache_il1 != cache_dl2 
+        && cache_il1 != cache_dl3))
     cache_reg_stats(cache_il1, sdb);
-  if (cache_il2
-      && (cache_il2 != cache_dl1 && cache_il2 != cache_dl2))
+  if (cache_il2 && (cache_il2 != cache_dl2 && cache_il2 != cache_dl3))
     cache_reg_stats(cache_il2, sdb);
+  if (cache_il3 && (cache_il3 != cache_dl3))
+    cache_reg_stats(cache_il3, sdb);
   if (cache_dl1)
     cache_reg_stats(cache_dl1, sdb);
   if (cache_dl2)
     cache_reg_stats(cache_dl2, sdb);
-  if (itlb)
-    cache_reg_stats(itlb, sdb);
-  if (dtlb)
-    cache_reg_stats(dtlb, sdb);
+  if (cache_dl3)
+    cache_reg_stats(cache_dl3, sdb);
+  // LVL3 Modified (END)
 
   for (i=0; i<pcstat_nelt; i++)
     {
