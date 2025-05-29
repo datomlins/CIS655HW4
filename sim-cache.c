@@ -155,9 +155,17 @@ dl2_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
 	      struct cache_blk_t *blk,	/* ptr to block in upper level */
 	      tick_t now)		/* time of access */
 {
-  /* this is a miss to the lowest level, so access main memory, which is
-     always done in the main simulator loop */
-  return /* access latency, ignored */1;
+  if (cache_dl3)
+    {
+      /* access next level of data cache hierarchy */
+      return cache_access(cache_dl3, cmd, baddr, NULL, bsize,
+			  /* now */now, /* pudata */NULL, /* repl addr */NULL);
+    }
+  else
+    {
+      /* access main memory, which is always done in the main simulator loop */
+      return /* access latency, ignored */1;
+    }
 }
 
 /* l1 inst cache l1 block miss handler function */
@@ -189,9 +197,17 @@ il2_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
 	      struct cache_blk_t *blk,	/* ptr to block in upper level */
 	      tick_t now)		/* time of access */
 {
-  /* this is a miss to the lowest level, so access main memory, which is
-     always done in the main simulator loop */
-  return /* access latency, ignored */1;
+  if (cache_il3)
+    {
+      /* access next level of data cache hierarchy */
+      return cache_access(cache_il3, cmd, baddr, NULL, bsize,
+			  /* now */now, /* pudata */NULL, /* repl addr */NULL);
+    }
+  else
+    {
+      /* access main memory, which is always done in the main simulator loop */
+      return /* access latency, ignored */1;
+    }
 }
 
 /* inst cache block miss handler function */
