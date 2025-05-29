@@ -275,8 +275,10 @@ dtlb_access_fn(enum mem_cmd cmd,	/* access cmd, Read or Write */
 /* cache/TLB options */
 static char *cache_dl1_opt /* = "none" */;
 static char *cache_dl2_opt /* = "none" */;
+static char *cache_dl3_opt /* = "none" */;
 static char *cache_il1_opt /* = "none" */;
 static char *cache_il2_opt /* = "none" */;
+static char *cache_il3_opt /* = "none" */;
 static char *itlb_opt /* = "none" */;
 static char *dtlb_opt /* = "none" */;
 static int flush_on_syscalls /* = FALSE */;
@@ -304,7 +306,7 @@ sim_reg_options(struct opt_odb_t *odb)	/* options database */
   opt_reg_header(odb, 
 "sim-cache: This simulator implements a functional cache simulator.  Cache\n"
 "statistics are generated for a user-selected cache and TLB configuration,\n"
-"which may include up to two levels of instruction and data cache (with any\n"
+"which may include up to three levels of instruction and data cache (with any\n"
 "levels unified), and one level of instruction and data TLBs.  No timing\n"
 "information is generated.\n"
 		 );
@@ -371,6 +373,13 @@ sim_reg_options(struct opt_odb_t *odb)	/* options database */
 		      pcstat_vars, MAX_PCSTAT_VARS, &pcstat_nelt, NULL,
 		      /* !print */FALSE, /* format */NULL, /* accrue */TRUE);
 
+  opt_reg_string(odb, "-cache:dl3", 
+          "l3 data cache config, i.e., {<config>|none}", 
+          &cache_dl3_opt, "ul3:1024:64:4:l", /* print */TRUE, NULL);
+          
+  opt_reg_string(odb, "-cache:il3", 
+          "l3 instruction cache config, i.e., {<config>|dl3|none}", 
+          &cache_dl3_opt, "ul3:1024:64:4:l", /* print */TRUE, NULL);
 }
 
 /* check simulator-specific option values */
