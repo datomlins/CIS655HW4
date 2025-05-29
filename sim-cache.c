@@ -561,7 +561,7 @@ sim_check_options(struct opt_odb_t *odb,	/* options database */
 				   /* usize */0, assoc, cache_char2policy(c),
 				   il2_access_fn, /* hit latency */1);
 
-      /*level 3 added */ (BEGIN): Level 3 instruction cache creation.
+      /*level 3 added */ 
       /* is the level 3 I-cache defined? */
       if (!mystricmp(cache_il3_opt, "none"))
         cache_il3 = NULL;
