@@ -168,6 +168,18 @@ dl2_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
     }
 }
 
+/* l3 inst cache block miss handler function */
+static unsigned int			/* latency of block access */
+dl3_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
+	      md_addr_t baddr,		/* block address to access */
+	      int bsize,		/* size of block to access */
+	      struct cache_blk_t *blk,	/* ptr to block in upper level */
+	      tick_t now)		/* time of access */
+{
+  /* access main memory, which is always done in the main simulator loop */
+  return /* access latency, ignored */1;
+}
+
 /* l1 inst cache l1 block miss handler function */
 static unsigned int			/* latency of block access */
 il1_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
@@ -208,6 +220,18 @@ il2_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
       /* access main memory, which is always done in the main simulator loop */
       return /* access latency, ignored */1;
     }
+}
+
+/* l3 inst cache block miss handler function */
+static unsigned int			/* latency of block access */
+il3_access_fn(enum mem_cmd cmd,		/* access cmd, Read or Write */
+	      md_addr_t baddr,		/* block address to access */
+	      int bsize,		/* size of block to access */
+	      struct cache_blk_t *blk,	/* ptr to block in upper level */
+	      tick_t now)		/* time of access */
+{
+  /* access main memory, which is always done in the main simulator loop */
+  return /* access latency, ignored */1;
 }
 
 /* inst cache block miss handler function */
